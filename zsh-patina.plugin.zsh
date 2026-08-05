@@ -14,6 +14,11 @@ if (( $+commands[zsh-patina] )); then
 fi
 
 if [[ ! -x "$bin" ]]; then
+  if ! (( $+commands[curl] && $+commands[tar] )); then
+    print -u2 "zsh-patina: requires curl and tar for bootstrap"
+    return 1
+  fi
+
   local target
 
   case "$(uname -s):$(uname -m)" in
@@ -30,12 +35,12 @@ if [[ ! -x "$bin" ]]; then
       target="x86_64-unknown-linux-gnu"
       ;;
     *)
-      print -u2 "zsh-patina: unsupported platform $(uname -s)/$(uname -m)"
+      print -u2 "zsh-patina: unsupported platform: $(uname -s)/$(uname -m)"
       return 1
       ;;
   esac
 
-  local release asset url tmp
+  local release asset_url tmp
 
   release=$(curl -fsSL \
     "https://api.github.com/repos/$repo/releases/latest") || {
@@ -43,29 +48,43 @@ if [[ ! -x "$bin" ]]; then
     return 1
   }
 
-  asset=$(print -r -- "$release" |
+  asset_url=$(
+    print -r -- "$release" |
     grep -o '"browser_download_url": "[^"]*"' |
-    grep "$target" |
-    head -1 |
-    sed 's/.*"//;s/"$//')
+    sed 's/.*"browser_download_url": "//;s/"$//' |
+    grep -E "${target}\.tar\.gz$" |
+    head -1
+  )
 
-  if [[ -z "$asset" ]]; then
-    print -u2 "zsh-patina: no release found for $target"
+  if [[ -z "$asset_url" ]]; then
+    print -u2 "zsh-patina: no release asset found for $target"
     return 1
   fi
 
   mkdir -p "$bin_dir"
 
-  tmp=$(mktemp -d)
+  tmp=$(mktemp -d) || return 1
 
-  curl -fsSL "$asset" -o "$tmp/archive" || {
+  curl -fsSL "$asset_url" -o "$tmp/archive" || {
     rm -rf "$tmp"
     return 1
   }
 
-  tar -xzf "$tmp/archive" -C "$tmp" --strip-components=1
+  tar -xzf "$tmp/archive" -C "$tmp" || {
+    rm -rf "$tmp"
+    return 1
+  }
 
-  install -m 755 "$tmp/zsh-patina" "$bin"
+  if [[ ! -x "$tmp/zsh-patina" ]]; then
+    print -u2 "zsh-patina: binary missing from archive"
+    rm -rf "$tmp"
+    return 1
+  fi
+
+  install -m 755 "$tmp/zsh-patina" "$bin" || {
+    rm -rf "$tmp"
+    return 1
+  }
 
   rm -rf "$tmp"
 fi
