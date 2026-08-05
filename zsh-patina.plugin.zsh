@@ -70,7 +70,7 @@ if [[ ! -x "$bin" ]]; then
     return 1
   }
 
-  tar -xzf "$tmp/archive" -C "$tmp" || {
+  tar -xzf "$tmp/archive" -C "$tmp" --strip-components=1 || {
     rm -rf "$tmp"
     return 1
   }
