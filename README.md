@@ -67,6 +67,20 @@ defaults to:
 ```text
 ~/.cache/zsh-patina
 ```
+## Zsh-patina binaries
+
+If you first install the `zsh-patina` binary, the plugin will use that.
+
+If not the plugin will install it for you from one of the following:
+
+- Darwin (MacOS) arm64
+- Darwin (MacOS) amd64
+- Linux arm64
+- Linux amd64
+
+These are always sourced from [`zsh-patina`](https://github.com/michel-kraemer/zsh-patina/releases) 
+
+If you require a different architecture target, I post an issue requesting and it will likely be added.
 
 ## License
 
