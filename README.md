@@ -1,5 +1,3 @@
-# NOTE in public ALPHA test
-
 # zsh-patina-plugin
 
 Zsh integration wrapper for [`zsh-patina`](https://github.com/michel-kraemer/zsh-patina).
@@ -39,8 +37,9 @@ On first load:
 3. installs the binary
 4. generates activation code
 5. sources the generated initialization
+6. generates completion code for compinit
 
-Subsequent loads use the installed binary and cached initialization.
+Subsequent loads use the installed binary and cached initialization, and activate completion and syntax highlighting.
 
 ## Configuration
 
@@ -67,6 +66,22 @@ defaults to:
 ```text
 ~/.cache/zsh-patina
 ```
+
+## Trouble shooting
+
+If you experience issues, first rule out `zsh-patina`
+
+run each of the following steps.
+
+1. `eval "$(zsh-patina activate)"`
+2. `zsh-patina check`
+
+if you have a warning about the line `eval "$(zsh-patina activate)"` not present in your `.zshrc` do not worry, it's being done by the plugin for you.
+
+if you get other error messages, try `zsh-patina restart` and check that zsh syntax highlighting is working.  
+
+If you still have issues, it is likely to be an issue with `zsh-patina`
+
 ## Zsh-patina binaries
 
 If you first install the `zsh-patina` binary, the plugin will use that.
