@@ -8,6 +8,8 @@ local bin_dir=${XDG_BIN_HOME:-$HOME/.local/bin}
 local bin="$bin_dir/zsh-patina"
 local cache_dir=${XDG_CACHE_HOME:-$HOME/.cache}/zsh-patina
 local cache="$cache_dir/init.zsh"
+local completion_dir="$cache_dir/completions"
+local completion_file="$completion_dir/_zsh-patina"
 
 if (( $+commands[zsh-patina] )); then
   bin=${commands[zsh-patina]}
@@ -95,3 +97,22 @@ if [[ ! -r "$cache" || "$bin" -nt "$cache" ]]; then
 fi
 
 source "$cache"
+
+# zsh-patina completion support
+#
+# Generated completion is kept separate from plugin-managed files.
+# compinit/compaudit remain the responsibility of the plugin manager/user.
+
+mkdir -p "$completion_dir"
+chmod 700 "$completion_dir"
+
+if [[ ! -r "$completion_file" || "$bin" -nt "$completion_file" ]]; then
+  "$bin" completion --output-file "$completion_file" || {
+    print -u2 "zsh-patina: failed to generate completion"
+    return 1
+  }
+
+  chmod 644 "$completion_file"
+fi
+
+fpath=("$completion_dir" $fpath)
