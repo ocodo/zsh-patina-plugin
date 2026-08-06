@@ -93,6 +93,7 @@ fi
 
 if [[ ! -r "$cache" || "$bin" -nt "$cache" ]]; then
   mkdir -p "$cache_dir"
+  chmod 700 "$cache_dir"
   "$bin" activate >| "$cache"
 fi
 
