@@ -57,32 +57,6 @@ On first load:
 
 Subsequent loads use the installed binary and cached initialization, and activate completion and syntax highlighting.
 
-## Configuration
-
-Binary location:
-
-```zsh
-XDG_BIN_HOME
-```
-
-defaults to:
-
-```text
-~/.local/bin
-```
-
-Activation cache location:
-
-```zsh
-XDG_CACHE_HOME
-```
-
-defaults to:
-
-```text
-~/.cache/zsh-patina
-```
-
 ## Trouble shooting
 
 If you experience issues, first rule out `zsh-patina`
