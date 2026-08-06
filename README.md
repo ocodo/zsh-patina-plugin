@@ -24,15 +24,31 @@ Supported platforms depend on the upstream `zsh-patina` release artifacts.
 
 Clone or bundle this repository using your preferred Zsh plugin manager.
 
-The plugin entry point is:
+### For Antidote
 
-```zsh
-zsh-patina.plugin.zsh
-````
+Add the following to `~/.zsh_plugins.txt`
+
+```
+ocodo/zsh-patina-plugin
+```
+
+### For Zinit
+
+Add the following to your `.zshrc` 
+
+```
+zinit light ocodo/zsh-patina-plugin
+```
+
+### What it does
+
+Fetch the binary if not installed, activate zsh-patina syntax highlighting and load completion.
+
+#### Step by step
 
 On first load:
 
-1. the plugin checks for `zsh-patina`
+1. check for `zsh-patina`
 2. downloads the matching upstream release if required
 3. installs the binary
 4. generates activation code
