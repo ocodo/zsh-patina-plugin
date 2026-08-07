@@ -1,3 +1,5 @@
+# IMPORTANT: IN ALPHA DEVELOPMENT.
+
 # zsh-patina-plugin
 
 Zsh integration wrapper for [`zsh-patina`](https://github.com/michel-kraemer/zsh-patina).
