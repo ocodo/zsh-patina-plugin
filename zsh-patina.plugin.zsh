@@ -1,6 +1,7 @@
 # zsh-patina.plugin.zsh
 #
 # Zsh integration wrapper for zsh-patina
+# https://github.com/michel-kraemer/zsh-patina
 
 if (( ! $+commands[zsh-patina] )); then
     print -u2 "zsh-patina: command not found"
