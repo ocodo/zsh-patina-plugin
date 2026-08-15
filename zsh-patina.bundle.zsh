@@ -1,6 +1,6 @@
-# zsh-patina.plugin.zsh
+# zsh-patina.bundle.zsh
 #
-# Zsh integration wrapper for zsh-patina
+# Zsh integration bundle for zsh-patina
 # https://github.com/michel-kraemer/zsh-patina
 
 if (( ! $+commands[zsh-patina] )); then
@@ -14,8 +14,8 @@ eval "$(zsh-patina activate)"
 
 # zsh-patina completion support
 #
-# Generated completion is kept separate from plugin-managed files.
-# compinit/compaudit remain the responsibility of the plugin manager/user.
+# Generated completion is kept separate from bundle-managed files.
+# compinit/compaudit remain the responsibility of the bundle manager/user.
 
 local completion_dir="${ZDOTDIR:-~}/.cache/zsh-patina/completions"
 local completion_file="$completion_dir/_zsh-patina"
