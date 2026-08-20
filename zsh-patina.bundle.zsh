@@ -17,7 +17,7 @@ eval "$(zsh-patina activate)"
 # Generated completion is kept separate from bundle-managed files.
 # compinit/compaudit remain the responsibility of the bundle manager/user.
 
-local completion_dir="${ZDOTDIR:-~}/.cache/zsh-patina/completions"
+local completion_dir=${ZDOTDIR:-~}"/.cache/zsh-patina/completions"
 local completion_file="$completion_dir/_zsh-patina"
 
 if [[ ! -r "$completion_file" ]]; then
