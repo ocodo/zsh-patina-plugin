@@ -1,5 +1,3 @@
-# IMPORTANT: IN BETA DEVELOPMENT.
-
 # zsh-patina-bundle
 
 A minimal bundle integration wrapper for [`zsh-patina`](https://github.com/michel-kraemer/zsh-patina).
